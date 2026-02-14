@@ -1,0 +1,133 @@
+:root { --w: min(720px, 96vw); }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+}
+
+.app {
+  width: var(--w);
+  /* aspect-ratio: 16 / 9;  ← これを削除 */
+  min-height: 80vh;
+  border: 1px solid #444;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, #2a4, #152);
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.card {
+  width: min(560px, 92%);
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 16px;
+  padding: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  margin: 0 0 6px 0;
+}
+
+.subtitle {
+  opacity: .9;
+  margin: 0 0 14px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.btns {
+  display: grid;
+  gap: 10px;
+}
+
+button {
+  background: #2a2a2a;
+  color: #eee;
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 12px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+button:hover { background: #303030; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  opacity: .95;
+  margin-top: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.25);
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.stageBtn {
+  padding: 12px 0;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.tips {
+  width: var(--w);
+  font-size: 12px;
+  opacity: .9;
+}
+
+.stageCard img{
+  width: 100%;
+  height: 140px;          /* ← サムネの高さ。好みで変更OK */
+  object-fit: contain;    /* ← 縮小して全体を表示（見切れない） */
+  background: rgba(0,0,0,.25); /* 余白が出るので下地 */
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.stageLabel{
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .02em;
+}
