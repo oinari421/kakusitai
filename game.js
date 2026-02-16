@@ -325,101 +325,79 @@ const BG_CFG = {
 const bg = BG_CFG[currentStage] || { fit: "cover", pos: "50% 50%", scale: 1.0 };
 
     app.innerHTML = `
-      <div class="center">
-        <div class="card">
-          <h2 class="title" style="font-size:22px;margin-bottom:8px;">
-  STAGE ${currentStage}：${STAGE_NAMES[currentStage] || ""}
-</h2>
+  <div class="center">
+    <div class="card">
+      <h2 class="title" style="font-size:22px;margin-bottom:8px;">
+        STAGE ${currentStage}：${STAGE_NAMES[currentStage] || ""}
+      </h2>
 
-          <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;opacity:.95;margin-bottom:10px;">
+      <div class="stageLayout">
+        <!-- 左：ゲーム画面 -->
+        <div id="stageArea" class="stageArea">
+          <img src="${stageImg}" alt=""
+            style="
+              position:absolute; inset:0;
+              width:100%; height:100%;
+              object-fit: cover;
+              object-position:${bg.pos};
+              transform: scale(${bg.scale});
+              filter: blur(18px) brightness(.85);
+              z-index:1;
+            " />
+
+          <img src="${stageImg}" alt=""
+            style="
+              position:absolute; inset:0;
+              width:100%; height:100%;
+              object-fit: contain;
+              object-position:${bg.pos};
+              transform: scale(${bg.scale});
+              z-index:2;
+            " />
+
+          <img id="target" src="images/frame.png" alt=""
+            style="
+              position:absolute;
+              left:${t.left};
+              top:${t.top};
+              width:${t.w}px;
+              height:${t.h}px;
+              transform:translate(-50%,-50%);
+              pointer-events:none;
+              z-index:3;
+            "
+          />
+
+          <div id="mosaic" style="
+            position:absolute;
+            left:${m0.left};
+            top:${m0.top};
+            width:${m0.w}px;
+            height:${m0.h}px;
+            transform:translate(-50%,-50%);
+            border-radius:6px;
+            cursor:grab;
+            touch-action:none;
+            user-select:none;
+            outline:1px solid rgba(255,255,255,.18);
+            box-shadow: 0 10px 30px rgba(0,0,0,.4);
+            z-index:4;
+          "></div>
+        </div>
+
+        <!-- 右：情報・操作 -->
+        <div class="sidePanel">
+          <div class="hud">
             <div>残り：<span id="time">${STAGE_SECONDS.toFixed(1)}</span>s</div>
-            <div style="display:flex;align-items:center;gap:8px;">
+
+            <div class="dangerBarRow">
               <span>危険度</span>
-              <div style="width:220px;height:10px;border:1px solid rgba(255,255,255,.25);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.25);">
-                <div id="dangerFill" style="height:100%;width:0%;background:#eee;"></div>
+              <div class="dangerBar">
+                <div id="dangerFill" class="dangerFill"></div>
               </div>
             </div>
-          </div>
 
-          <div id="stageArea" style="
-            position: relative;
-            width: 100%;
-            max-width: 360px;
-            aspect-ratio: 353 / 566;
-            background: transparent;
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 0 auto 12px;
-          ">
-            <!-- ★ 背景 -->
-            <!-- 下：埋める用（ぼかし） -->
-<img src="${stageImg}" alt=""
-  style="
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit: cover;
-    object-position:${bg.pos};
-    transform: scale(${bg.scale});
-    filter: blur(18px) brightness(.85);
-    z-index:1;
-  " />
-
-<!-- 上：見切れなし本体 -->
-<img src="${stageImg}" alt=""
-  style="
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit: contain;
-    object-position:${bg.pos};
-    transform: scale(${bg.scale});
-    z-index:2;
-  " />
-
-
-            <!-- ★ 枠（ターゲット） -->
-            <img id="target" src="images/frame.png" alt=""
-              style="
-                position:absolute;
-                left:${t.left};
-                top:${t.top};
-                width:${t.w}px;
-                height:${t.h}px;
-                transform:translate(-50%,-50%);
-                pointer-events:none;
-                z-index:3;
-              "
-            />
-
-            <!-- ★ モザイク -->
-            <div id="mosaic" style="
-              position:absolute;
-              left:${m0.left};
-              top:${m0.top};
-              width:${m0.w}px;
-              height:${m0.h}px;
-              transform:translate(-50%,-50%);
-              border-radius:6px;
-              cursor:grab;
-              touch-action:none;
-              user-select:none;
-              outline:1px solid rgba(255,255,255,.18);
-              box-shadow: 0 10px 30px rgba(0,0,0,.4);
-              z-index:4;
-            "></div>
-
-            <div id="msg" style="
-              pointer-events:none;
-              position:absolute;
-              left:50%;
-              top:10px;
-              transform:translateX(-50%);
-              padding:6px 10px;
-              border-radius:999px;
-              border:1px solid rgba(255,255,255,.18);
-              background:rgba(0,0,0,.35);
-              font-size:13px;
-              z-index:5;
-            ">枠を隠し続けろ</div>
+            <div id="msg" class="msgPill">枠を隠し続けろ</div>
           </div>
 
           <div class="row">
@@ -428,7 +406,10 @@ const bg = BG_CFG[currentStage] || { fit: "cover", pos: "50% 50%", scale: 1.0 };
           </div>
         </div>
       </div>
-    `;
+    </div>
+  </div>
+`;
+
 
     document.getElementById("btnBack").onclick = () => setScreen("stageSelect");
     document.getElementById("btnRetry").onclick = () => setScreen("stage");
@@ -619,7 +600,7 @@ function updateTargetMovement(dt) {
     y = baseTop  + Math.sin(t * speed * 2) * ry * ramp;
 
   } else if (currentStage === 6) {
-    const speed = 2.4;
+    const speed = 2.3;
     const range = 35;
     const phase = (t * speed) % 2;
     const v = phase < 1 ? phase : 2 - phase; // 0→1→0
@@ -645,8 +626,8 @@ y = baseTop  + Math.cos(t * 1.3) * 30 * ramp;
 
   }else if (currentStage === 10) {
 
-  const CHANGE_INTERVAL = 0.8;   // 位置変更間隔（小さいほど暴れる）
-  const MOVE_SPEED = 6.0;        // 移動速度（大きいほど俊敏）
+  const CHANGE_INTERVAL = 0.7;   // 位置変更間隔（小さいほど暴れる）
+  const MOVE_SPEED = 5.6;        // 移動速度（大きいほど俊敏）
 
   if (!target._rand) {
     target._rand = {
