@@ -5,10 +5,10 @@
   const SAVE_KEY = "mosaic_save";
   const MAX_STAGE = 10;
 
-  // ★ ここで耐久時間を変える（枠を覆い続ける合計時間）
+  // ★ 耐久時間
   const STAGE_SECONDS = 15.0;
 
-  // ★ ここで「外れても耐えられる量」を変える（大きいほど猶予が増える）
+  // ★ 外れても耐えられる量（大きいほど猶予が増える)
   const MAX_DANGER = 200;//70;
   // ★ 外れている時に危険度が増える速さ（小さいほど猶予が増える）
   const DANGER_GAIN_PER_SEC = 50;
