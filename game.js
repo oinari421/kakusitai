@@ -117,7 +117,7 @@ function playSe(type) {
 
   // ===== 状態 =====
   let save = loadSave(); // null ならデータ無し
-  let screen = "title"; // "title" | "stageSelect" | "stage" | "result"
+  let screen = "boot"; // 最初はクリック待ち
   let currentStage = 1;
   let lastResult = null; // { type, stage, message, unlockTo? }
   let rafId = null;
@@ -143,11 +143,40 @@ function playSe(type) {
 
   // ===== 画面描画 =====
   function render() {
-    if (screen === "title") renderTitle();
-    else if (screen === "stageSelect") renderStageSelect();
-    else if (screen === "stage") renderStage();
-    else if (screen === "result") renderResult();
-  }
+  if (screen === "boot") renderBoot();
+  else if (screen === "title") renderTitle();
+  else if (screen === "stageSelect") renderStageSelect();
+  else if (screen === "stage") renderStage();
+  else if (screen === "result") renderResult();
+}
+
+function renderBoot() {
+  app.innerHTML = `
+    <div class="center">
+      <div class="card">
+        <h1 class="title">カクシタイ</h1>
+    
+
+        <div class="btns">
+          <button id="btnStart">クリックして開始</button>
+        </div>
+
+        <p class="subtitle" style="margin-top:12px;">
+          【遊び方】<br>
+          ・モザイクをドラッグして枠を隠す<br>
+          ・外れると危険度が上昇<br>
+          ・時間切れまで隠せたらCLEAR
+        </p>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("btnStart").onclick = () => {
+    // ユーザー操作 → ここからBGMが確実に鳴る
+    setScreen("title");
+  };
+}
+
 
   // ===== タイトル =====
   function renderTitle() {
@@ -397,8 +426,7 @@ const bg = BG_CFG[currentStage] || { fit: "cover", pos: "50% 50%", scale: 1.0 };
               </div>
             </div>
 
-            <div id="msg" class="msgPill">点線の枠に自主規制君(吉岡)をドラックして隠し続けろ/div>
-          </div>
+            <div id="msg" class="msgPill">点線の枠に自主規制君(吉岡)をドラッグして隠し続けろ</div>
 
           <div class="row">
             <button id="btnBack">ステージ選択へ</button>
@@ -741,7 +769,9 @@ y = baseTop  + Math.cos(t * 1.3) * 30 * ramp;
 
   // 起動
  // 起動
-setScreen("title");
+setScreen("boot");
+
 
 })();
+
 
