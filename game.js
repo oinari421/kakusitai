@@ -1,19 +1,19 @@
 (() => {
   const app = document.getElementById("app");
 
-  // ===== 設定 =====
+  // 設定
   const SAVE_KEY = "mosaic_save";
   const MAX_STAGE = 10;
 
-  // ★ 耐久時間
+  // 耐久時間
   const STAGE_SECONDS = 15.0;
 
-  // ★ 外れても耐えられる量（大きいほど猶予が増える)
+  //外れても耐えられる量（大きいほど猶予が増える)
   const MAX_DANGER = 200;//70;
-  // ★ 外れている時に危険度が増える速さ（小さいほど猶予が増える）
+  //外れている時に危険度が増える速さ（小さいほど猶予が増える）
   const DANGER_GAIN_PER_SEC = 50;
 
-  // ★ 覆えている時に危険度が減る速さ
+  //覆えている時に危険度が減る速さ
   const DANGER_LOSS_PER_SEC = 40;
 
 //ステージ名
@@ -30,14 +30,14 @@
   10: "白"
 };
 
-// ===== BGM =====
+//BGM
 const BGM = {
   title: "audio/bgm_title.mp3",
   stageSelect: "audio/bgm_select.mp3",
   stage: "audio/bgm_stage.mp3",
 };
 
-// ===== BGM 再生管理 =====
+//BGM管理
 const bgmAudio = new Audio();
 bgmAudio.loop = true;
 bgmAudio.volume = 0.35;
@@ -71,7 +71,7 @@ function stopBgm() {
 }
 
 
-// ===== SE =====
+//SE
 const SE = {
   clear: "audio/se_clear.mp3",
   fail: "audio/se_fail.mp3",
@@ -397,7 +397,7 @@ const bg = BG_CFG[currentStage] || { fit: "cover", pos: "50% 50%", scale: 1.0 };
               </div>
             </div>
 
-            <div id="msg" class="msgPill">枠を隠し続けろ</div>
+            <div id="msg" class="msgPill">点線の枠に自主規制君(吉岡)をドラックして隠し続けろ/div>
           </div>
 
           <div class="row">
@@ -744,3 +744,4 @@ y = baseTop  + Math.cos(t * 1.3) * 30 * ramp;
 setScreen("title");
 
 })();
+
