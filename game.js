@@ -329,7 +329,7 @@ function renderStageSelect() {
       7: { left: "50%", top: "55%", w: 170, h: 160 },
       8: { left: "50%", top: "55%", w: 180, h: 120 },
       9: { left: "50%", top: "55%", w: 175, h: 160 },
-      10: { left: "50%", top: "55%", w: 170, h: 170 },
+      10: { left: "50%", top: "55%", w: 180, h: 180 },
     };
     const m0 = MOSAIC_POS[currentStage];
 
@@ -654,8 +654,8 @@ y = baseTop  + Math.cos(t * 1.3) * 30 * ramp;
 
   }else if (currentStage === 10) {
 
-  const CHANGE_INTERVAL = 0.8;   // 位置変更間隔（小さいほど暴れる）
-  const MOVE_SPEED = 4.3;        // 移動速度（大きいほど俊敏）
+  const CHANGE_INTERVAL = 0.9;   // 位置変更間隔（小さいほど暴れる）
+  const MOVE_SPEED = 4.0;        // 移動速度（大きいほど俊敏）
 
   if (!target._rand) {
     target._rand = {
@@ -773,6 +773,7 @@ setScreen("boot");
 
 
 })();
+
 
 
 
