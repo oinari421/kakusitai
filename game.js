@@ -11,10 +11,10 @@
   //外れても耐えられる量（大きいほど猶予が増える)
   const MAX_DANGER = 200;//70;
   //外れている時に危険度が増える速さ（小さいほど猶予が増える）
-  const DANGER_GAIN_PER_SEC = 50;
+  const DANGER_GAIN_PER_SEC = 40;
 
   //覆えている時に危険度が減る速さ
-  const DANGER_LOSS_PER_SEC = 40;
+  const DANGER_LOSS_PER_SEC = 50;
 
 //ステージ名
   const STAGE_NAMES = {
@@ -773,6 +773,7 @@ setScreen("boot");
 
 
 })();
+
 
 
 
