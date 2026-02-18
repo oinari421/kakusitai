@@ -314,7 +314,7 @@ function renderStageSelect() {
       7: { left: "50%", top: "65%", w: 150, h: 140 },
       8: { left: "50%", top: "20%", w: 140, h: 120 },
       9: { left: "50%", top: "65%", w: 150, h: 140 },
-      10: { left: "30%", top: "55%", w: 160, h: 160 },
+      10: { left: "30%", top: "55%", w: 170, h: 170 },
     };
     const t = TARGET_POS[currentStage];
 
@@ -329,7 +329,7 @@ function renderStageSelect() {
       7: { left: "50%", top: "55%", w: 170, h: 160 },
       8: { left: "50%", top: "55%", w: 180, h: 120 },
       9: { left: "50%", top: "55%", w: 175, h: 160 },
-      10: { left: "50%", top: "55%", w: 180, h: 180 },
+      10: { left: "50%", top: "55%", w: 195, h: 195 },
     };
     const m0 = MOSAIC_POS[currentStage];
 
@@ -773,6 +773,7 @@ setScreen("boot");
 
 
 })();
+
 
 
 
